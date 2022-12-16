@@ -26,6 +26,7 @@ class AuthController extends GetxController{
             await auth.createUserWithEmailAndPassword(email: emailCtr.value.text, password: passCtr.value.text);
           }
           catch(e){
+
             debugPrint("error");
           }
 
