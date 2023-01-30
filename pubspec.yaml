@@ -16,7 +16,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.5
   firebase_auth: ^4.2.1
-  firebase_core: 
+  firebase_core:
+  cloud_firestore:
+  url_launcher: ^6.1.7
+  get_storage: ^2.0.3
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
   flutter_test:
@@ -29,8 +33,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/default/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

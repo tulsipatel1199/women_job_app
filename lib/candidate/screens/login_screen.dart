@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:women_job_app/recruiter/screens/recruiter_home_screen.dart';
-
-import '../../candidate/screens/candidate_signup_screen.dart';
-class RecruiterLogin extends StatelessWidget {
-  const RecruiterLogin({Key? key}) : super(key: key);
-
+import 'package:women_job_app/common/auth_controllers/auth_controller.dart';
+import 'signup_screen.dart';
+// ignore: must_be_immutable
+class LoginScreen extends StatelessWidget {
+  LoginScreen({Key? key, required this.isCandidateLogin}) : super(key: key);
+  bool isCandidateLogin;
+  AuthController authController = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,23 +15,23 @@ class RecruiterLogin extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric( horizontal: 40),
           child: Column(
-            // crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text("Please Login Recruiter"),
+              const Text("Login to continue"),
               const SizedBox(
                 height: 40,
               ),
-              const TextField(
-                decoration: InputDecoration(
+               TextField(
+                controller: authController.emailCtr.value,
+                decoration: const InputDecoration(
                     hintText: "Email"
                 ),
                 keyboardType: TextInputType.emailAddress,
               ),
-              const TextField(
-                decoration: InputDecoration(
+               TextField(
+                controller: authController.passCtr.value,
+                decoration: const InputDecoration(
                   hintText: "Password",
-
                 ),
                 obscureText: true,
               ),
@@ -38,13 +39,17 @@ class RecruiterLogin extends StatelessWidget {
                 height: 40,
               ),
               ElevatedButton(onPressed: (){
-                Get.off(()=>RecruiterHomeScreen());
-                }, child: const Text("Log In")),
+                authController.login(isCandidateLogin);
+              }, child: const Text("Log In")),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const Text("Don't have an account?"),
-                  TextButton(onPressed: (){Get.off(()=>CandidateSignup());}, child: const Text("Sign Up")),
+                  TextButton(onPressed: (){
+
+                    Get.off(()=>SignupScreen(isCandidateSignup: isCandidateLogin));
+
+                    }, child: const Text("Sign Up")),
                 ],
               ),
 

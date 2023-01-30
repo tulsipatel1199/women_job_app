@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../common/auth_controllers/auth_controller.dart';
-import 'candidate_home_screen.dart';
-import 'candidate_login_screen.dart';
-class CandidateSignup extends StatelessWidget {
-  CandidateSignup({Key? key}) : super(key: key);
+import 'login_screen.dart';
+// ignore: must_be_immutable
+class SignupScreen extends StatelessWidget {
+  SignupScreen({Key? key, required this.isCandidateSignup}) : super(key: key);
   AuthController controller = Get.put(AuthController());
+  bool isCandidateSignup;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,28 +18,26 @@ class CandidateSignup extends StatelessWidget {
             // crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text("Please Sign up Candidate"),
+              const Text("Please Sign up"),
               const SizedBox(
                 height: 40,
               ),
                TextField(
                 controller: controller.nameCtr.value,
-
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     hintText: "Name"
                 ),
-
               ),
               TextField(
                 controller:controller.emailCtr.value,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     hintText: "Email"
                 ),
                 keyboardType: TextInputType.emailAddress,
               ),
               TextField(
                 controller:controller.passCtr.value,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "Password",
 
                 ),
@@ -47,7 +45,7 @@ class CandidateSignup extends StatelessWidget {
               ),
               TextField(
                 controller:controller.conPassCtr.value,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "Confirm Password",
 
                 ),
@@ -57,17 +55,14 @@ class CandidateSignup extends StatelessWidget {
                 height: 40,
               ),
               ElevatedButton(onPressed: (){
-                controller.signup();
-                // Get.off(()=>CandidateHomeScreen());
-                // debugPrint("${controller.nameCtr.value.text} ${controller.emailCtr.value.text}");
+                controller.signup(isCandidateSignup);
               }, child: const Text("Sign up")),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const Text("Already have an account?"),
                   TextButton(onPressed: (){
-
-                    Get.off(()=>CandidateLogin());}, child: const Text("Log In")),
+                    Get.off(()=>LoginScreen(isCandidateLogin: isCandidateSignup));}, child: const Text("Log In")),
                 ],
               ),
 

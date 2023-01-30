@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../../candidate/screens/candidate_login_screen.dart';
-import '../../recruiter/screens/recruiter_login_screen.dart';
+import '../../candidate/screens/login_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -13,48 +13,38 @@ class WelcomeScreen extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            const Spacer(),
             InkWell(
               onTap: (){
                 debugPrint("helloed!!!!");
-                Get.to(()=>const CandidateLogin());
+                Get.to(()=> LoginScreen(isCandidateLogin: true));
               },
-              child: Card(
-                color: const Color(0xE2B1F6FF),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 50),
-                  child: Column(
-                    children: const [
-                      Icon(Icons.account_circle,size: 80,),
-                      Text("Candidate",style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),),
-                    ],
-                  ),
-                ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+                child: SvgPicture.asset("assets/default/candidate.svg"),
               ),
             ),
+            const Text("Candidate",style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),),
+            const SizedBox(height: 50,),
             InkWell(
               onTap: (){
-                Get.to(()=>const RecruiterLogin());
+                Get.to(()=> LoginScreen(isCandidateLogin: false));
               },
-              child: Card(
-                color: const Color(0xE2B1F6FF),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 50),
-                  child: Column(
-                    children: const [
-                      Icon(Icons.account_circle,size: 80,),
-                      Text("Recruiter",style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),),
-                    ],
-                  ),
-                ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+                child: SvgPicture.asset("assets/default/Recruter.svg"),
               ),
-            )
+            ),
+            const Text("Recruiter",style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),),
+            const Spacer(),
           ],
         ),
       ),
