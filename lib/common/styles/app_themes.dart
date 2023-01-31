@@ -18,6 +18,11 @@ class AppThemes{
     elevatedButtonTheme:  ElevatedButtonThemeData(style: ButtonStyle(backgroundColor: MaterialStateProperty.all(ButtonColor))),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       selectedItemColor: primaryColor,
+    ),
+    snackBarTheme: SnackBarThemeData(
+      backgroundColor: Colors.black,
+      contentTextStyle: TextStyle(color: Colors.white),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(0)))
     )
     //primarySwatch: Color.
   );

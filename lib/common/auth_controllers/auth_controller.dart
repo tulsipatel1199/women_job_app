@@ -18,7 +18,6 @@ class AuthController extends GetxController{
 
   signup(bool isCandidate) async {
     if(nameCtr.value.text.isNotEmpty&&emailCtr.value.text.isNotEmpty&&passCtr.value.text.isNotEmpty&&conPassCtr.value.text.isNotEmpty){
-
       if(passCtr.value.text.length>=6){
         if(passCtr.value.text == conPassCtr.value.text){
           try{
@@ -43,12 +42,10 @@ class AuthController extends GetxController{
         ("error!!! please enter 6 digit");
         Get.snackbar("Enter 6 digit password", "Enter 6 digit passowrd");
       }
-
-
     }
     else{
       debugPrint("error!!! please enter something");
-      Get.snackbar("Please enter details", "Please enter details");
+      Get.snackbar("Please enter all details", "Please enter all details");
     }
   }
   login(bool isCandidate) async {

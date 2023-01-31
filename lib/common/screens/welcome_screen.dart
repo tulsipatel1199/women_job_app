@@ -18,13 +18,9 @@ class WelcomeScreen extends StatelessWidget {
             const Spacer(),
             InkWell(
               onTap: (){
-                debugPrint("helloed!!!!");
                 Get.to(()=> LoginScreen(isCandidateLogin: true));
               },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-                child: SvgPicture.asset("assets/default/candidate.svg"),
-              ),
+              child: SvgPicture.asset("assets/default/Candidate.svg"),
             ),
             const Text("Candidate",style: TextStyle(
               fontSize: 20,
@@ -35,10 +31,7 @@ class WelcomeScreen extends StatelessWidget {
               onTap: (){
                 Get.to(()=> LoginScreen(isCandidateLogin: false));
               },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-                child: SvgPicture.asset("assets/default/Recruter.svg"),
-              ),
+              child: SvgPicture.asset("assets/default/Recruter.svg"),
             ),
             const Text("Recruiter",style: TextStyle(
               fontSize: 20,

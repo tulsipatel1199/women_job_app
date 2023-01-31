@@ -17,7 +17,7 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text("Login to continue"),
+              const Text("Login to Continue"),
               const SizedBox(
                 height: 40,
               ),
