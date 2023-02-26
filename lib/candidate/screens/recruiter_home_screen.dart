@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
 import '../controllers/recruiter_controller.dart';
 import 'add_job_screen.dart';
 
@@ -15,18 +13,6 @@ class RecruiterHomeScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text("Jobs Posted by You"),
           automaticallyImplyLeading: false,
-          actions:  [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                  onTap:(){
-                    Get.snackbar("Coming soon!", " ");
-                  },
-                  child: SvgPicture.asset('assets/default/chat.svg'),
-
-              ),
-            ),
-          ],
         ),
       floatingActionButton: SizedBox(
         width: 100,

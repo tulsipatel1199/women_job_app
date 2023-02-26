@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:women_job_app/candidate/screens/splash_screen.dart';
-import 'package:women_job_app/common/auth_controllers/auth_gate.dart';
 
 import 'common/styles/app_themes.dart';
 
@@ -20,8 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-
-      title: 'Women\'s job app',
+      title: 'Job Hunt',
       theme: AppThemes.themeData,
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),

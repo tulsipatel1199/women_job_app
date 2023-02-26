@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../screens/candidate_job_details_screen.dart';
+import '../screens/job_details_screen.dart';
 
 class HomeController extends GetxController {
 
@@ -14,29 +15,11 @@ class HomeController extends GetxController {
     var url =
         "https://mail.google.com/mail/?view=cm&to=$email&su=$subject&body=$message";
     if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
+      await launchUrl(Uri.parse(url),mode: LaunchMode.externalApplication);
     } else {
       throw "Could not launch $url";
     }
   }
-
-  // //function
-  // RxList<Job> jobsList = <Job>[].obs;
-  //
-  // getJobOpenings() async {
-  //   final QuerySnapshot qs = await fs.collection('jobs').get();
-  //   // debugPrint("qs--->>>${qs.docs[0].get('description')}");
-  //   for (int i = 0; i < qs.size; i++) {
-  //     // jobs.add(qs.docs[i].get('title'));
-  //     jobsList.add(Job(company: qs.docs[i].get('company'),
-  //         description: qs.docs[i].get('description'),
-  //         tenure: qs.docs[i].get('tenure'),
-  //         salary: qs.docs[i].get('salary'),
-  //         role: qs.docs[i].get('role')));
-  //   }
-  //
-  //   debugPrint("${jobsList[0].description}");
-  // }
 }
 
 
@@ -53,29 +36,41 @@ class HomeController extends GetxController {
       .snapshots(),
   builder: (context, snapshot) {
   if (!snapshot.hasData) {
+    debugPrint("no data");
   return const Text('Something went wrong');
   }
   if (snapshot.connectionState == ConnectionState.waiting) {
-  return const Text("Loading");
+    debugPrint("loading");
+    return const Text("Loading");
   }
-  return ListView(
+  debugPrint("has data");
+  return snapshot.data!.docs.toList().isEmpty?Center(child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      SvgPicture.asset("assets/default/candidate_empty_state.svg"),
+      const SizedBox(height:8),
+      const Text("No job post available right now, Please try again later."),
+    ],
+  )):ListView(
     children: snapshot.data!.docs.map((DocumentSnapshot document) {
       Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
       return  Padding(
         padding: const EdgeInsets.symmetric(vertical:6.0),
         child: InkWell(
           onTap: (){
-            Get.to(()=>CandidateJobDetailsScreen(
+            Get.to(()=>JobDetailsScreen(
               title: data['company'],
               role: data['role'],
               tenure: data['tenure'],
               salary: data['salary'],
               description: data['description'],
               recruiterEmail: data['email'],
+              phone: data['phone'],
+              isCandidate: true,
+              receiverId: data['addedBy'],
             ));
           },
           child: Card(
-            //decoration: BoxDecoration(borderRadius : BorderRadius.circular(8),color: Colors.cyan),
             child:
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 10),
@@ -89,7 +84,6 @@ class HomeController extends GetxController {
                     maxLines: 2,
                     overflow: TextOverflow.fade,
                   ),
-
                 ],
               ),
             ),
@@ -112,8 +106,8 @@ class HomeController extends GetxController {
 
 
 
-class Job{
-  String company, description,role, salary,tenure, email;
-
-  Job({required this.email,required this.company, required this.description, required this.role, required this.salary, required this.tenure});
-}
+// class Job{
+//   String company, description,role, salary,tenure, email, phone;
+//
+//   Job({required this.email,required this.phone,required this.company, required this.description, required this.role, required this.salary, required this.tenure});
+// }

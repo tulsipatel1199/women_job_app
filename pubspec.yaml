@@ -17,10 +17,14 @@ dependencies:
   get: ^4.6.5
   firebase_auth: ^4.2.1
   firebase_core:
+  firebase_storage:
   cloud_firestore:
   url_launcher: ^6.1.7
   get_storage: ^2.0.3
   flutter_svg: ^1.1.6
+  file_picker: ^5.2.5
+  email_validator: ^2.1.17
+
 
 dev_dependencies:
   flutter_test:

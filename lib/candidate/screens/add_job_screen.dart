@@ -10,7 +10,7 @@ class AddJobScreen extends GetView<RecruiterController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Job"),
+        title: const Text("Add Job"),
       ),
       bottomNavigationBar:Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 16.0),

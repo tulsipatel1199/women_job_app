@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:women_job_app/candidate/controllers/home_controller.dart';
+import 'chat_screen.dart';
 
 
 class CandidateHomeScreen extends StatelessWidget {
@@ -14,10 +16,15 @@ HomeController controller = Get.put(HomeController());
       appBar: AppBar(
         title: const Text("Job openings"),
         automaticallyImplyLeading: false,
-        actions: const [
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Icon(Icons.chat_bubble),
+        actions: [
+          InkWell(
+            onTap: (){
+              Get.to(()=>ChatScreen());
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SvgPicture.asset('assets/default/chat.svg'),
+            ),
           ),
         ],
       ),

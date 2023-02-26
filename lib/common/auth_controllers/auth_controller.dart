@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,27 +12,33 @@ class AuthController extends GetxController{
 
   Rx<TextEditingController> nameCtr = TextEditingController().obs;
   Rx<TextEditingController> emailCtr = TextEditingController().obs;
+  Rx<TextEditingController> phoneCtr = TextEditingController().obs;
   Rx<TextEditingController> passCtr = TextEditingController().obs;
   Rx<TextEditingController> conPassCtr = TextEditingController().obs;
 
 
 
   signup(bool isCandidate) async {
-    if(nameCtr.value.text.isNotEmpty&&emailCtr.value.text.isNotEmpty&&passCtr.value.text.isNotEmpty&&conPassCtr.value.text.isNotEmpty){
+    if(nameCtr.value.text.isNotEmpty&&emailCtr.value.text.isNotEmpty&&phoneCtr.value.text.isNotEmpty&&passCtr.value.text.isNotEmpty&&conPassCtr.value.text.isNotEmpty){
       if(passCtr.value.text.length>=6){
         if(passCtr.value.text == conPassCtr.value.text){
-          try{
-           final user = await auth.createUserWithEmailAndPassword(email: emailCtr.value.text, password: passCtr.value.text);
-        final fs = FirebaseFirestore.instance;
-          fs.collection('users').doc(user.user!.uid).set({
-            'name':nameCtr.value.text,
-           'email':emailCtr.value.text,
-            'isCandidate':isCandidate,
-         });
-            Get.off(()=>DashboardScreen());
-          }
-          catch(e){
+          if(EmailValidator.validate(emailCtr.value.text)){
+            try{
+              final user = await auth.createUserWithEmailAndPassword(email: emailCtr.value.text, password: passCtr.value.text);
+              final fs = FirebaseFirestore.instance;
+              fs.collection('users').doc(user.user!.uid).set({
+                'name':nameCtr.value.text,
+                'email':emailCtr.value.text,
+                'phone':phoneCtr.value.text,
+                'isCandidate':isCandidate,
+              });
+              Get.off(()=>DashboardScreen());
+            }
+            catch(e){
               Get.snackbar("Email already in use", "The email address is already in use by another account.");
+            }
+          }else{
+            Get.snackbar("Invalid Email", "");
           }
 
         }else{
@@ -44,7 +51,7 @@ class AuthController extends GetxController{
       }
     }
     else{
-      debugPrint("error!!! please enter something");
+      debugPrint("error!!! please enter all details");
       Get.snackbar("Please enter all details", "Please enter all details");
     }
   }
