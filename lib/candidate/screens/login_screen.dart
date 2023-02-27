@@ -33,7 +33,7 @@ class LoginScreen extends StatelessWidget {
               suffixIcon: IconButton(onPressed:(){
                 debugPrint(authController.hidePassword.value.toString());
                 authController.hidePassword.value=!authController.hidePassword.value;
-              },icon: authController.hidePassword.value?Icon(Icons.remove_red_eye_outlined):Icon(Icons.remove_red_eye_sharp))
+              },icon: authController.hidePassword.value?const Icon(Icons.remove_red_eye_outlined):const Icon(Icons.remove_red_eye_sharp))
           ),
           obscureText: authController.hidePassword.value,
         ),),

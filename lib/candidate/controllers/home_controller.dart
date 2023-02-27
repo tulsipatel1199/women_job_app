@@ -15,7 +15,7 @@ class HomeController extends GetxController {
     var url =
         "https://mail.google.com/mail/?view=cm&to=$email&su=$subject&body=$message";
     if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url),mode: LaunchMode.externalApplication);
+      await launchUrl(Uri.parse(url));
     } else {
       throw "Could not launch $url";
     }

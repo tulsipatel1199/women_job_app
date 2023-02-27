@@ -25,7 +25,7 @@ class AddJobBottomSheet extends StatelessWidget {
             CustomTextField(controller:recruiterController.companyNameCtr.value , title: 'Company',),
             CustomTextField(controller:recruiterController.salaryCtr.value , title: 'Salary (LPA)',),
             CustomTextField(controller:recruiterController.tenureCtr.value , title: 'Tenure',),
-            CustomTextField(controller:recruiterController.descriptionCtr.value , title: 'Description',),
+            CustomTextField(controller:recruiterController.descriptionCtr.value , title: 'Description',minLines: 5,),
 
           ],
         ),

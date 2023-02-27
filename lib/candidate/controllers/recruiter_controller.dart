@@ -119,7 +119,16 @@ class RecruiterJobsStream extends GetView<RecruiterController> {
               child: InkWell(
                 onTap: (){
                   debugPrint("${document.id}");
-                  },
+                  // Get.to(()=>JobDetailsScreen(
+                  //   title: data['company'],
+                  //   role: data['role'],
+                  //   tenure: data['tenure'],
+                  //   salary: data['salary'],
+                  //   description: data['description'],
+                  //   recruiterEmail: data['email'],
+                  //   isCandidate: false,
+                  // ));
+                },
                 child: Card(
                   //decoration: BoxDecoration(borderRadius : BorderRadius.circular(8),color: Colors.cyan),
                   child:

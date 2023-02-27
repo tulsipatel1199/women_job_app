@@ -38,22 +38,28 @@ class SignupScreen extends StatelessWidget {
             ),
             keyboardType: TextInputType.emailAddress,
           ),
-          TextField(
+          Obx(()=>TextField(
             controller:controller.passCtr.value,
-            decoration: const InputDecoration(
-              hintText: "Password",
-
+            decoration: InputDecoration(
+                hintText: "Password",
+                suffixIcon: IconButton(onPressed:(){
+                  debugPrint(controller.hidePassword.value.toString());
+                  controller.hidePassword.value=!controller.hidePassword.value;
+                },icon: controller.hidePassword.value?const Icon(Icons.remove_red_eye_outlined):const Icon(Icons.remove_red_eye_sharp))
             ),
             obscureText: true,
-          ),
-          TextField(
+          ),),
+          Obx(()=>TextField(
             controller:controller.conPassCtr.value,
-            decoration: const InputDecoration(
-              hintText: "Confirm Password",
-
+            decoration: InputDecoration(
+                hintText: "Confirm Password",
+                suffixIcon: IconButton(onPressed:(){
+                  debugPrint(controller.hidePassword.value.toString());
+                  controller.hidePassword.value=!controller.hidePassword.value;
+                },icon: controller.hidePassword.value?const Icon(Icons.remove_red_eye_outlined):const Icon(Icons.remove_red_eye_sharp))
             ),
             obscureText: true,
-          ),
+          ),),
           const SizedBox(
             height: 40,
           ),
