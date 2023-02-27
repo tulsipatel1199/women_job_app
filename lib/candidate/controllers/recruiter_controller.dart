@@ -5,6 +5,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:women_job_app/candidate/screens/add_job_screen.dart';
 
+import '../../common/alert_dialog_widget.dart';
+
 final user = FirebaseAuth.instance;
 
 class RecruiterController extends GetxController{
@@ -15,11 +17,11 @@ class RecruiterController extends GetxController{
   Rx<TextEditingController> tenureCtr = TextEditingController().obs;
   Rx<TextEditingController> descriptionCtr = TextEditingController().obs;
 
-  addJob(){
+  addJob() async {
     final fs = FirebaseFirestore.instance;
     if(companyNameCtr.value.text.isNotEmpty&&roleCtr.value.text.isNotEmpty&&salaryCtr.value.text.isNotEmpty&&tenureCtr.value.text.isNotEmpty&&
         descriptionCtr.value.text.isNotEmpty&&user.currentUser!.uid.isNotEmpty&&user.currentUser!.email!.isNotEmpty){
-
+      DocumentSnapshot ds = await fs.collection('users').doc(user.currentUser!.uid).get();
       fs.collection('jobs').add({
         'company': companyNameCtr.value.text,
         'role': roleCtr.value.text,
@@ -29,7 +31,7 @@ class RecruiterController extends GetxController{
         'addedAt':DateTime.now(),
         'addedBy': user.currentUser!.uid,
         'email':user.currentUser!.email,
-        'phone':user.currentUser!.phoneNumber,
+        'phone':ds.get('phone'),
       });
       resetFields();
       Get.back();
@@ -117,16 +119,7 @@ class RecruiterJobsStream extends GetView<RecruiterController> {
               child: InkWell(
                 onTap: (){
                   debugPrint("${document.id}");
-                  // Get.to(()=>JobDetailsScreen(
-                  //   title: data['company'],
-                  //   role: data['role'],
-                  //   tenure: data['tenure'],
-                  //   salary: data['salary'],
-                  //   description: data['description'],
-                  //   recruiterEmail: data['email'],
-                  //   isCandidate: false,
-                  // ));
-                },
+                  },
                 child: Card(
                   //decoration: BoxDecoration(borderRadius : BorderRadius.circular(8),color: Colors.cyan),
                   child:
@@ -188,7 +181,10 @@ class RecruiterJobsStream extends GetView<RecruiterController> {
                                       const Divider(),
                                       InkWell(
                                           onTap:(){
-                                                RecruiterController().deleteJob(document.id);
+                                            Get.back();
+                                            Get.dialog(AlertDialogWidget(warningMessage: "Are you sure, you want delete this job post?", buttonText: "Delete", onPressed: (){
+                                              RecruiterController().deleteJob(document.id);
+                                            }));
                                           },
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),

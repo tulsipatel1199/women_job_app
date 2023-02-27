@@ -14,7 +14,7 @@ class SignupScreen extends StatelessWidget {
       child: ListView(
         shrinkWrap: true,
         children: [
-          Center(child: Text("Register Yourself to get you dream job!", style: Theme.of(context).textTheme.titleMedium)),
+          Center(child: Text(isCandidateSignup?"Register yourself as Candidate!":"Register yourself as Recruiter!", style: Theme.of(context).textTheme.titleMedium, textAlign: TextAlign.justify)),
           const SizedBox(
             height: 40,
           ),

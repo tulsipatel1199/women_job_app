@@ -10,6 +10,8 @@ import 'package:women_job_app/candidate/screens/dashboard_screen.dart';
 class AuthController extends GetxController{
   final auth = FirebaseAuth.instance;
 
+  RxBool hidePassword = true.obs;
+
   Rx<TextEditingController> nameCtr = TextEditingController().obs;
   Rx<TextEditingController> emailCtr = TextEditingController().obs;
   Rx<TextEditingController> phoneCtr = TextEditingController().obs;
@@ -47,7 +49,7 @@ class AuthController extends GetxController{
         }
       }else{debugPrint
         ("error!!! please enter 6 digit");
-        Get.snackbar("Enter 6 digit password", "Enter 6 digit passowrd");
+        Get.snackbar("Enter 6 digit password", "Enter 6 digit password");
       }
     }
     else{

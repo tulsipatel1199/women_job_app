@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../common/alert_dialog_widget.dart';
 import '../controllers/profile_controller.dart';
 
 
@@ -23,36 +24,14 @@ class ProfileScreen extends StatelessWidget{
              Text(profileController.email.value),
             const SizedBox(height: 20,),
             TextButton(onPressed: (){
-              Get.dialog(AlertDialog(title: Text("Are you sure, you want to logout?"),
-              actionsAlignment: MainAxisAlignment.spaceEvenly,
-              actions: [
-                ElevatedButton(onPressed: (){
-                  Get.back();
-                }, child: const Text("Cancel"),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(Colors.transparent),
-                  side: MaterialStatePropertyAll(BorderSide(
-                    width: 1,
-                    color: Colors.black
-                  ))
-                ),
-                ),
-                ElevatedButton(onPressed: (){
-                            profileController.logout();
-                          },
-                    child: const Text("Logout"),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(Colors.redAccent),
-                        side: MaterialStatePropertyAll(BorderSide(
-                            width: 1,
-                            color: Colors.black
-                        ))
-                    ),
-                ),
-              ],
-
-              )
-
+              Get.dialog(
+                  AlertDialogWidget(
+                    warningMessage: "Are you sure, you want to logout?",
+                    buttonText: "Logout",
+                    onPressed: (){
+                      profileController.logout();
+                    },
+                  )
 
               //     Dialog(
               //   child: Padding(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:women_job_app/common/auth_controllers/auth_controller.dart';
 import '../../common/screens/common_base_screen.dart';
 import 'signup_screen.dart';
@@ -14,7 +15,7 @@ class LoginScreen extends StatelessWidget {
       child: ListView(
         shrinkWrap: true,
       children: [
-        Center(child: Text("Welcome Back!", style: Theme.of(context).textTheme.titleMedium)),
+        Center(child: Text(isCandidateLogin?"Welcome Back! Login as Candidate":"Welcome Back! Login as Recruiter", style: Theme.of(context).textTheme.titleMedium, textAlign: TextAlign.justify)),
         const SizedBox(
           height: 40,
         ),
@@ -25,13 +26,17 @@ class LoginScreen extends StatelessWidget {
           ),
           keyboardType: TextInputType.emailAddress,
         ),
-        TextField(
+        Obx(()=>TextField(
           controller: authController.passCtr.value,
-          decoration: const InputDecoration(
-            hintText: "Password",
+          decoration: InputDecoration(
+              hintText: "Password",
+              suffixIcon: IconButton(onPressed:(){
+                debugPrint(authController.hidePassword.value.toString());
+                authController.hidePassword.value=!authController.hidePassword.value;
+              },icon: authController.hidePassword.value?Icon(Icons.remove_red_eye_outlined):Icon(Icons.remove_red_eye_sharp))
           ),
-          obscureText: true,
-        ),
+          obscureText: authController.hidePassword.value,
+        ),),
         const SizedBox(
           height: 40,
         ),

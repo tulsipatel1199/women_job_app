@@ -26,9 +26,6 @@ class ProfileController extends GetxController{
    DocumentSnapshot ds = await fs.collection('users').doc(user!.uid).get();
    name.value = ds.get('name');
    email.value = ds.get('email');
-
-
-   debugPrint("name--->>>${name.value}, email--->>>${email.value}");
   }catch(e){
    debugPrint("$e");
   }
